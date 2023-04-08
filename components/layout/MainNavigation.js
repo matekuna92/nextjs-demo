@@ -8,7 +8,7 @@ const MainNavigation = () => {
         <header className={styles.header}>
             <div className={styles.mainLogo}> React Meetups </div>
             <ul>
-                <li><Link href='/all-meetups'> All Meetups </Link></li>
+                <li><Link href='/'> All Meetups </Link></li>
                 <li><Link href='/new-meetup'> Add New Meetup </Link></li>
             </ul>
         </header>
