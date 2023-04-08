@@ -21,7 +21,7 @@ const NewMeetupForm = (props) => {
 
         const formData = {
             title: enteredTitle,
-            imaeg: enteredImage,
+            image: enteredImage,
             address: enteredAddress,
             desc: enteredDesc
         };
