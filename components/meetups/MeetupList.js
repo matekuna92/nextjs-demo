@@ -28,7 +28,6 @@ const TEST_MEETUPLIST = [
 
 const MeetupList = () => {
     return (
-        <Layout>
             <ul className={styles.meetupList}>
                 {TEST_MEETUPLIST.map(item => (
                     <MeetupItem
@@ -41,7 +40,6 @@ const MeetupList = () => {
                     />
                 ))}
             </ul>
-        </Layout>
     );
 }
 

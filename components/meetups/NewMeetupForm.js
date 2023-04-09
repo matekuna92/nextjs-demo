@@ -32,7 +32,6 @@ const NewMeetupForm = (props) => {
     
     return (
         <>
-        <Layout>
             <Card>
                 <form className={styles.form} onSubmit={submitHandler}>
 
@@ -57,7 +56,6 @@ const NewMeetupForm = (props) => {
                     </div>
                 </form>
             </Card>
-        </Layout>
         </>
     );
 }
