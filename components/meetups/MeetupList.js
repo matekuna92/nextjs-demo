@@ -1,5 +1,6 @@
 import MeetupItem from "./MeetupItem";
 import styles from './MeetupList.module.css';
+import Layout from "../layout/Layout";
 
 const TEST_MEETUPLIST = [
     {
@@ -27,6 +28,7 @@ const TEST_MEETUPLIST = [
 
 const MeetupList = () => {
     return (
+        <Layout>
             <ul className={styles.meetupList}>
                 {TEST_MEETUPLIST.map(item => (
                     <MeetupItem
@@ -39,6 +41,7 @@ const MeetupList = () => {
                     />
                 ))}
             </ul>
+        </Layout>
     );
 }
 

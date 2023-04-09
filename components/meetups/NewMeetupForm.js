@@ -3,7 +3,8 @@
 import { useRef } from 'react';
 
 import styles from './NewMeetupForm.module.css';
-import MainNavigation from "../layout/MainNavigation";
+import Card from "../ui/Card";
+import Layout from "../layout/Layout";
 
 const NewMeetupForm = (props) => {
     const titleInputRef = useRef();
@@ -31,29 +32,32 @@ const NewMeetupForm = (props) => {
     
     return (
         <>
-            <MainNavigation />
-            <form className={styles.form} onSubmit={submitHandler}>
-                
-                <div className={styles.formControl}>
-                    <label htmlFor='title'>Meetup Title</label>
-                    <input type='text' id='title' ref={titleInputRef} required />
-                </div>
-                <div className={styles.formControl}>
-                    <label htmlFor='image'>Meetup Image</label>
-                    <input type='text' id='image' ref={imageInputRef} required />
-                </div>
-                <div className={styles.formControl}>
-                    <label htmlFor='address'>Address</label>
-                    <input type='text' id='address' ref={addressInputRef} required />
-                </div>
-                <div className={styles.formControl}>
-                    <label htmlFor='desc'>Description</label>
-                    <input type='textarea' id='desc' ref={descInputRef} required />
-                </div>
-                <div className={styles.actions}>
-                    <button>Add Meetup</button>
-                </div> 
-            </form>
+        <Layout>
+            <Card>
+                <form className={styles.form} onSubmit={submitHandler}>
+
+                    <div className={styles.formControl}>
+                        <label htmlFor='title'>Meetup Title</label>
+                        <input type='text' id='title' ref={titleInputRef} required />
+                    </div>
+                    <div className={styles.formControl}>
+                        <label htmlFor='image'>Meetup Image</label>
+                        <input type='text' id='image' ref={imageInputRef} required />
+                    </div>
+                    <div className={styles.formControl}>
+                        <label htmlFor='address'>Address</label>
+                        <input type='text' id='address' ref={addressInputRef} required />
+                    </div>
+                    <div className={styles.formControl}>
+                        <label htmlFor='desc'>Description</label>
+                        <input type='textarea' id='desc' ref={descInputRef} required />
+                    </div>
+                    <div className={styles.actions}>
+                        <button>Add Meetup</button>
+                    </div>
+                </form>
+            </Card>
+        </Layout>
         </>
     );
 }

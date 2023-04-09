@@ -1,5 +1,5 @@
 .form {
-    width: 60%;
+    width: 100%;
     margin: 3rem auto;
     border: 1px solid #ccc;
     padding: 3rem 5rem;
@@ -30,7 +30,6 @@
 .formControl input:focus,
 .formControl textarea:focus {
     outline: none;
-    border: 2px solid #ccc;
 }
 
 .actions {
