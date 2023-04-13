@@ -50,7 +50,7 @@ const HomePage = (props) => {
 // nextJS looks for this function and runs it before component function
 // nextJS waits for this function to load, so we will already have the data, when the component is loaded after getStaticProps
 // meetups list will be loaded before component, then will be sent as props to component, so it's available before component render
-export const getStaticProps = async () => {
+/* export const getStaticProps = async () => {
     return {
         props: {
             meetups: TEST_MEETUPLIST
@@ -60,6 +60,21 @@ export const getStaticProps = async () => {
         // without it data could be outdated, because getStaticProps loads once on build,
         //and this function wont know about new meetups without revalidate
         revalidate: 10      // number of seconds nextJS waits until it regenerates this page for an incoming request
+    }
+} */
+
+// will run always on the server after deployment, not during build process as getStaticProps
+export const getServerSideProps = async (context) => {
+    // we could access reqest and response objects from context, if it's needed
+    const req = context.req;
+    const res = context.res;
+
+    // getServerSideProps is better, if we need the access to req and res, or if data is changing eg. every seconds
+    // revalidate has no sense in getServerSideProps
+    return {
+        props: {
+            meetups: TEST_MEETUPLIST
+        }
     }
 }
 
