@@ -30,6 +30,9 @@ const TEST_MEETUPLIST = [
 const HomePage = () => {
     const [loadedMeetups, setLoadedMeetups] = useState([]);
 
+    // on first component render loadedMeetups will be empty array
+    // then useEffect runs, component rerenders again with the actual data
+    // nextJs wont wait this 2nd render, in page source the <ul> is also empty
     useEffect(() => {
         setLoadedMeetups(TEST_MEETUPLIST);
     }, []);
