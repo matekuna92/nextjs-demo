@@ -71,6 +71,8 @@ export const getServerSideProps = async (context) => {
 
     // getServerSideProps is better, if we need the access to req and res, or if data is changing eg. every seconds
     // revalidate has no sense in getServerSideProps
+    // getStaticProps is better when data is not changing frequently, because it can be cached, 
+    // so page wont regenerate on every request all the time
     return {
         props: {
             meetups: TEST_MEETUPLIST
