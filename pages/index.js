@@ -27,21 +27,35 @@ const TEST_MEETUPLIST = [
 ];
 
 
-const HomePage = () => {
+const HomePage = (props) => {
     const [loadedMeetups, setLoadedMeetups] = useState([]);
 
     // on first component render loadedMeetups will be empty array
     // then useEffect runs, component rerenders again with the actual data
-    // nextJs wont wait this 2nd render, in page source the <ul> is also empty
+    // nextJs wont wait this 2nd render, in page source the <ul> is also empty, 
+    // it always takes the resulst of first render, which is an empty list
+    // it works, but it is a SEO problem, because page source doesnt containt the list items
     useEffect(() => {
         setLoadedMeetups(TEST_MEETUPLIST);
     }, []);
 
     return (
         <>
-            <MeetupList meetups={loadedMeetups} />
+            <MeetupList meetups={props.meetups} />
         </>
     )
+}
+
+// only works inside pages/ components files!
+// nextJS looks for this function and runs it before component function
+// nextJS waits for this function to load, so we will already have the data, when the component is loaded after getStaticProps
+// meetups list will be loaded before component, then will be sent as props to component, so it's available before component render
+export const getStaticProps = async () => {
+    return {
+        props: {
+            meetups: TEST_MEETUPLIST
+        }
+    }
 }
 
 export default HomePage;
