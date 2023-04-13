@@ -54,7 +54,12 @@ export const getStaticProps = async () => {
     return {
         props: {
             meetups: TEST_MEETUPLIST
-        }
+        },
+        // with revalidate this page wont just be generated in the build process(it's the default),
+        //but also in every 10seconds, if there are request for this page
+        // without it data could be outdated, because getStaticProps loads once on build,
+        //and this function wont know about new meetups without revalidate
+        revalidate: 10      // number of seconds nextJS waits until it regenerates this page for an incoming request
     }
 }
 
