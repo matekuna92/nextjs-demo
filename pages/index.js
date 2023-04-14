@@ -28,16 +28,18 @@ const TEST_MEETUPLIST = [
 
 
 const HomePage = (props) => {
-    const [loadedMeetups, setLoadedMeetups] = useState([]);
+    // old version: set Meetups inside useEffect with the help of useState
+    // new version: getServerSideProps will handle the meetups from props, so useEffect and state are no longer needed
+   // const [loadedMeetups, setLoadedMeetups] = useState([]);
 
     // on first component render loadedMeetups will be empty array
     // then useEffect runs, component rerenders again with the actual data
     // nextJs wont wait this 2nd render, in page source the <ul> is also empty, 
     // it always takes the resulst of first render, which is an empty list
     // it works, but it is a SEO problem, because page source doesnt containt the list items
-    useEffect(() => {
-        setLoadedMeetups(TEST_MEETUPLIST);
-    }, []);
+//    useEffect(() => {
+//        setLoadedMeetups(TEST_MEETUPLIST);
+//    }, []);
 
     return (
         <>

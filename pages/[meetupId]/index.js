@@ -32,12 +32,12 @@ export const getStaticPaths = async () => {
         paths: [
             {
                 params: {
-                    meetupId: 'm1'
+                    meetupId: '1'
                 },
             },
             {
                 params: {
-                    meetupId: 'm2'
+                    meetupId: '2'
                 },
             }
         ],
