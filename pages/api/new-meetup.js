@@ -2,25 +2,33 @@
 
 import { MongoClient } from 'mongodb';
 
+const credentials = 'C:\Users\Kuna Máté\Desktop\WebDev\GitHub\ReacT\X509-cert-2687168343715386017.pem';
+
 const handler = async (req, res) => {
     if(req.method === 'POST') {
-        const data = req.body;
+        try {
+            const data = req.body;
         
-        // expect fields from the newMeetupForm on this API
-        // const { title, image, address, desc } = data;
+            // expect fields from the newMeetupForm on this API
+            // const { title, image, address, desc } = data;
+    
+            const client = await MongoClient.connect('mongodb+srv://jsnext:js123123@nextjsdemo.olsk22u.mongodb.net/test');
 
-        const client = await MongoClient.connect('mongodb+srv://nextjsdemo.olsk22u.mongodb.net/meetups?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority');
-        const db = client.db();
-
-        // insert new document into the collection
-        const meetupsCollection = db.collection('meetups');
-        const result = await meetupsCollection.insertOne({ data });
-
-        console.log(result);
-
-        await client.close();
-
-        res.status(201).json({message: 'Meetup inserted.'});
+            const db = client.db();
+    
+            // insert new document into the collection
+            const meetupsCollection = db.collection('meetups');
+            const result = await meetupsCollection.insertOne({ data });
+    
+            console.log(result);
+    
+            client.close();
+    
+            res.status(201).json({ message: 'Meetup inserted.' });
+        }
+        catch(err) {
+            return res.status(500).json({ message: err.message });
+        }
     }
 }
 
