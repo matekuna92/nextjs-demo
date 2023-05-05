@@ -44,7 +44,7 @@ export const getStaticPaths = async () => {
         // if false: it means that paths array contains ALL supported parameter values for meetupID-s,
         // if user enters a path which isnt defined in the array, user will get a 404 error
         // if true: it contains only some of them, needs fallback. NextJS tries to generate a page for the incoming request
-        fallback: false
+        fallback: true
     }
 }
 

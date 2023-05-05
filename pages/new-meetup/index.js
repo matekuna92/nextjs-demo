@@ -1,7 +1,11 @@
-import NewMeetupForm from "../../components/meetups/NewMeetupForm";
+import { useRouter } from 'next/router';
+
+import NewMeetupForm from '../../components/meetups/NewMeetupForm';
 
 
 const NewMeetup = () => {
+    const router = useRouter();
+
     const addNewMeetupHandler = async (meetupData) => {
         // relative path, api runs on the same server
         const response = await fetch('/api/new-meetup', {
@@ -14,6 +18,8 @@ const NewMeetup = () => {
 
         const data = await response.json();
         console.log(data);
+
+        router.push('/');
     }
 
     return <NewMeetupForm onAddNewMeetup={addNewMeetupHandler} />

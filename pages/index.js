@@ -1,31 +1,10 @@
-import { useEffect, useState } from "react";
-import MainNavigation from "../components/layout/MainNavigation";
+/* if we import something in a page component file, but using it in getStaticProps - so it will run only on server -
+nextJS knows that it belongs to server-side code, so the imported package
+ wont appear in the client-side bundle with the other files - bundle size wont be bigger, because the imported package -
+ for exmaple MongoClient here - will never reach the client - will be included in a seperate bundle */
+import { MongoClient } from 'mongodb';
+
 import MeetupList from "../components/meetups/MeetupList";
-
-const TEST_MEETUPLIST = [
-    {
-        id: '1',
-        title: 'Title 1',
-        image: 'https://images.unsplash.com/photo-1576085898323-218337e3e43c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        address: '1111 Test Street 1',
-        desc: 'First meetup'
-    },
-    {
-        id: '2',
-        title: 'Title 2',
-        image: 'https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80',
-        address: '2222 Test Street 2',
-        desc: 'Second meetup'
-    },
-    {
-        id: '3',
-        title: 'Title 3',
-        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        address: '3333 Test Street 3',
-        desc: 'Third meetup'
-    }
-];
-
 
 const HomePage = (props) => {
     // old version: set Meetups inside useEffect with the help of useState
@@ -52,8 +31,46 @@ const HomePage = (props) => {
 // nextJS looks for this function and runs it before component function
 // nextJS waits for this function to load, so we will already have the data, when the component is loaded after getStaticProps
 // meetups list will be loaded before component, then will be sent as props to component, so it's available before component render
-/* export const getStaticProps = async () => {
-    return {
+ export const getStaticProps = async () => {
+    try {
+        const client = await MongoClient.connect('mongodb+srv://jsnext:js123123@nextjsdemo.olsk22u.mongodb.net/test');
+        const db = client.db();
+        
+        const meetupsCollection = db.collection('meetups');
+    
+        // finds all documents in the collection as default
+        const allMeetups = await meetupsCollection.find().toArray();
+        console.log(allMeetups[0]);
+    
+        console.log('allMeetups', allMeetups);
+    
+        await client.close();
+    
+        // getServerSideProps is better, if we need the access to req and res, or if data is changing eg. every seconds
+        // revalidate has no sense in getServerSideProps
+        // getStaticProps is better when data is not changing frequently, because it can be cached, 
+        // so page wont regenerate on every request all the time
+        return {
+            props: {
+                // meetups object cant be passed as value for meetups key, need to return an object
+                // Error serializing `.meetups[0]._id`, ("[object Object]") cannot be serialized as JSON. error
+                // reason: mongoDB stores _id for every item not as String, but in an "ObjectId('643abc0c8841f0fc031b0329') format
+               /// meetups: allMeetups
+                meetups: allMeetups.map(meetup => ({
+                    title: meetup.title,
+                    address: meetup.address,
+                    image: meetup.image,
+                    id: meetup._id.toString()
+                }))
+            },
+            revalidate: 1
+        };
+    }
+    catch(err) {
+        return 'Data fetching from MongoDB failed';
+    }
+
+  /*  return {
         props: {
             meetups: TEST_MEETUPLIST
         },
@@ -66,20 +83,10 @@ const HomePage = (props) => {
 } */
 
 // will run always on the server after deployment, not during build process as getStaticProps
-export const getServerSideProps = async (context) => {
+/* export const getServerSideProps = async (context) => {
     // we could access reqest and response objects from context, if it's needed
     const req = context.req;
-    const res = context.res;
-
-    // getServerSideProps is better, if we need the access to req and res, or if data is changing eg. every seconds
-    // revalidate has no sense in getServerSideProps
-    // getStaticProps is better when data is not changing frequently, because it can be cached, 
-    // so page wont regenerate on every request all the time
-    return {
-        props: {
-            meetups: TEST_MEETUPLIST
-        }
-    }
+    const res = context.res; */
 }
 
 export default HomePage;

@@ -2,8 +2,6 @@
 
 import { MongoClient } from 'mongodb';
 
-const credentials = 'C:\Users\Kuna Máté\Desktop\WebDev\GitHub\ReacT\X509-cert-2687168343715386017.pem';
-
 const handler = async (req, res) => {
     if(req.method === 'POST') {
         try {
