@@ -6,6 +6,7 @@ const handler = async (req, res) => {
     if(req.method === 'POST') {
         try {
             const data = req.body;
+            console.log("data", data);
         
             // expect fields from the newMeetupForm on this API
             // const { title, image, address, desc } = data;
@@ -16,11 +17,11 @@ const handler = async (req, res) => {
     
             // insert new document into the collection
             const meetupsCollection = db.collection('meetups');
-            const result = await meetupsCollection.insertOne({ data });
+            const result = await meetupsCollection.insertOne({ ...data });
     
             console.log(result);
     
-            client.close();
+            await client.close();
     
             res.status(201).json({ message: 'Meetup inserted.' });
         }

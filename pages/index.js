@@ -40,7 +40,7 @@ const HomePage = (props) => {
     
         // finds all documents in the collection as default
         const allMeetups = await meetupsCollection.find().toArray();
-        console.log(allMeetups[0]);
+        console.log(allMeetups);
     
         console.log('allMeetups', allMeetups);
     
@@ -60,6 +60,7 @@ const HomePage = (props) => {
                     title: meetup.title,
                     address: meetup.address,
                     image: meetup.image,
+                    desc: meetup.desc,
                     id: meetup._id.toString()
                 }))
             },
