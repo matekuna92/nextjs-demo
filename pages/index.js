@@ -2,9 +2,11 @@
 nextJS knows that it belongs to server-side code, so the imported package
  wont appear in the client-side bundle with the other files - bundle size wont be bigger, because the imported package -
  for exmaple MongoClient here - will never reach the client - will be included in a seperate bundle */
-import { MongoClient } from 'mongodb';
+ import { MongoClient } from 'mongodb';
+ import Head from 'next/head';
 
 import MeetupList from "../components/meetups/MeetupList";
+import { Fragment } from 'react';
 
 const HomePage = (props) => {
     // old version: set Meetups inside useEffect with the help of useState
@@ -21,9 +23,13 @@ const HomePage = (props) => {
 //    }, []);
 
     return (
-        <>
+        <Fragment>
+            <Head>
+                <title>React Meetups NextJS Demo</title>
+                <meta name='description' content='Browse the latest developer meetups.' />
+            </Head>
             <MeetupList meetups={props.meetups} />
-        </>
+        </Fragment>
     )
 }
 

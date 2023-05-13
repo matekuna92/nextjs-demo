@@ -2,6 +2,7 @@
 
 import { MongoClient } from 'mongodb';
 
+// nextJS triggers this function when a request is reaches this '/api/new-meetup' path
 const handler = async (req, res) => {
     if(req.method === 'POST') {
         try {

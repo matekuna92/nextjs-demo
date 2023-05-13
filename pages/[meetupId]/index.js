@@ -2,14 +2,26 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
 import MeetupDetail from "../../components/meetups/MeetupDetail";
+import { Fragment } from 'react';
+import Head from 'next/head';
 
 const MeetupDetails = (props) => {
-    return <MeetupDetail
+    return <Fragment>
+    <Head>
+        <title>{props.meetupData.title}</title>
+        <meta name='description' content={props.meetupData.desc} />
+    </Head>
+    <MeetupDetail
         image={props.meetupData.image}
         title={props.meetupData.title}
         address={props.meetupData.address}
         desc={props.meetupData.desc}
     />
+</Fragment>
+    
+    
+    
+    
 }
 
 // context also exists in getStaticProps, but request and response cant be accessed like in getServerSideProps
