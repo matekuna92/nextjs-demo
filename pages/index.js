@@ -30,7 +30,7 @@ const HomePage = (props) => {
             </Head>
             <MeetupList meetups={props.meetups} />
         </Fragment>
-    )
+    );
 }
 
 // only works inside pages/ components files!

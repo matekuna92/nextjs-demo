@@ -24,14 +24,15 @@ const NewMeetup = () => {
         await router.push('/');
     }
 
-    return <Fragment>
-        <Head>
-            <title>Add New Meetup</title>
-            <meta name='description' content='Add your own meetup.' />
-        </Head>
-        <NewMeetupForm onAddNewMeetup={addNewMeetupHandler} />
-    </Fragment>
-    
+    return (
+        <Fragment>
+            <Head>
+                <title>Add New Meetup</title>
+                <meta name='description' content='Add your own meetup.' />
+            </Head>
+            <NewMeetupForm onAddNewMeetup={addNewMeetupHandler} />
+        </Fragment>
+    );
 }
 
 export default NewMeetup;
